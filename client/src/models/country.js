@@ -1,6 +1,6 @@
-const country = function(options){
+const Country = function(options){
   this.name = options.name,
-  this.coords = option.coords
+  this.coords = options.coords
 };
 
-module.export = Country;
+module.exports = Country;
