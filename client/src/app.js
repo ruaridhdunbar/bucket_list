@@ -1,6 +1,7 @@
 // const CountryView = require("./views/countryView")
 const Request = require('./services/request.js');
 const CountryView = require('./views/countryView.js')
+const Country = require('./models/country.js')
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
@@ -24,8 +25,15 @@ const handleButtonClick = function(event) {
 
 const getCountriesRequestComplete = function(allCountries) {
   allCountries.forEach(function(country) {
-    countryView.addCountry(country);
+
+    const newCountry = new Country({
+      name: country.name,
+      coords: country.latlng
+    })
+
+    countryView.addCountry(newCountry);
   })
+  console.log(countryView.countries);
 
 }
 
