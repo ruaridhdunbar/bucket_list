@@ -15,13 +15,11 @@ CountryView.prototype.addToDropDown = function(country) {
   selector.appendChild(option);
 }
 
-CountryView.prototype.addToList = function(countries){
+CountryView.prototype.addToList = function(country){
   const ul = document.querySelector('#saved-countries');
-  countries.forEach(function(country){
     const li = document.createElement('li');
     li.textContent = country.name;
     ul.appendChild(li);
-  })
 }
 
 CountryView.prototype.clear = function() {

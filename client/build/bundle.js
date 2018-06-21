@@ -93,9 +93,9 @@ const getSavedCountriesRequestComplete = function(allSavedCountries) {
   allSavedCountries.forEach(function(country) {
     if (country.coords && country.coords.length === 2) {
       mainMap.addMarker(country.coords);
+      countryView.addToList(country);
     }
   })
-  countryView.addToList(allSavedCountries);
 }
 
 const getCountriesRequestComplete = function(allCountries) {
@@ -107,6 +107,7 @@ const getCountriesRequestComplete = function(allCountries) {
     })
     countryView.addCountry(newCountry);
   })
+
   const saveButton = document.querySelector('#submit');
   saveButton.addEventListener('click', handleButtonClick);
   const deleteButton = document.querySelector("#deleteButton");
@@ -128,6 +129,7 @@ const handleDeleteClick = function(event) {
 const saveRequestComplete = function(country){
   if (country.coords && country.coords.length === 2) {
     mainMap.addMarker(country.coords);
+    countryView.addToList(country);
   }
 }
 
@@ -204,13 +206,11 @@ CountryView.prototype.addToDropDown = function(country) {
   selector.appendChild(option);
 }
 
-CountryView.prototype.addToList = function(countries){
+CountryView.prototype.addToList = function(country){
   const ul = document.querySelector('#saved-countries');
-  countries.forEach(function(country){
     const li = document.createElement('li');
     li.textContent = country.name;
     ul.appendChild(li);
-  })
 }
 
 CountryView.prototype.clear = function() {

@@ -24,9 +24,9 @@ const getSavedCountriesRequestComplete = function(allSavedCountries) {
   allSavedCountries.forEach(function(country) {
     if (country.coords && country.coords.length === 2) {
       mainMap.addMarker(country.coords);
+      countryView.addToList(country);
     }
   })
-  countryView.addToList(allSavedCountries);
 }
 
 const getCountriesRequestComplete = function(allCountries) {
@@ -38,6 +38,7 @@ const getCountriesRequestComplete = function(allCountries) {
     })
     countryView.addCountry(newCountry);
   })
+
   const saveButton = document.querySelector('#submit');
   saveButton.addEventListener('click', handleButtonClick);
   const deleteButton = document.querySelector("#deleteButton");
@@ -59,6 +60,7 @@ const handleDeleteClick = function(event) {
 const saveRequestComplete = function(country){
   if (country.coords && country.coords.length === 2) {
     mainMap.addMarker(country.coords);
+    countryView.addToList(country);
   }
 }
 
