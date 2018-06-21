@@ -5,23 +5,14 @@ const Country = require('./models/country.js')
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
+const dbRequest = new Request('http://localhost:3000/api/bucket-list');
 
 const countryView = new CountryView();
 
 const appStart = function(){
   request.get(getCountriesRequestComplete);
-
-  const saveButton = document.querySelector('#submit');
-  saveButton.addEventListener('click', handleButtonClick);
-
-
 }
 
-const handleButtonClick = function(event) {
-  event.preventDefault();
-
-
-}
 
 const getCountriesRequestComplete = function(allCountries) {
   allCountries.forEach(function(country) {
@@ -33,8 +24,19 @@ const getCountriesRequestComplete = function(allCountries) {
 
     countryView.addCountry(newCountry);
   })
-  console.log(countryView.countries);
+  const saveButton = document.querySelector('#submit');
+  saveButton.addEventListener('click', handleButtonClick);
+}
 
+const handleButtonClick = function(event) {
+  event.preventDefault();
+  const selectedCountry = document.querySelector('#select-country').value;
+  const selectedCountryParsed = JSON.parse(selectedCountry);
+  dbRequest.post(selectedCountryParsed, saveRequestComplete);
+}
+
+const saveRequestComplete = function(country){
+  console.log('hiya');
 }
 
 window.addEventListener('load', appStart);

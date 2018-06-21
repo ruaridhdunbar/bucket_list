@@ -15,5 +15,4 @@ CountryView.prototype.addToDropDown = function(country) {
   selector.appendChild(option);
 }
 
-
 module.exports = CountryView;

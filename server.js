@@ -25,7 +25,7 @@ MongoClient.connect("mongodb://localhost:27017", function(err, client) {
     if (err) next(err);
     res.status(201);
     res.json(result.ops[0])
-    console.log('saved  to database!!');
+    console.log('yaaassss!!! saved to database!!');
   });
 });
 
