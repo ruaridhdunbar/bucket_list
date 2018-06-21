@@ -179,6 +179,16 @@ CountryView.prototype.addToDropDown = function(country) {
   selector.appendChild(option);
 }
 
+CountryView.prototype.addToList = function(countries){
+  const ul = document.querySelector('#saved-countries');
+  countries.forEach(function(country){
+    const li = document.createElement('li');
+    li.textContent = countries.name;
+    ul.appendChild(li);
+  })
+}
+
+
 module.exports = CountryView;
 
 
