@@ -68,25 +68,41 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 // const CountryView = require("./views/countryView")
-const Request = __webpack_require__(2);
+const Request = __webpack_require__(1);
+const CountryView = __webpack_require__(2)
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
 
+const countryView = new CountryView();
+
 const appStart = function(){
   request.get(getCountriesRequestComplete);
+
+  const saveButton = document.querySelector('#submit');
+  saveButton.addEventListener('click', handleButtonClick);
+
+
+}
+
+const handleButtonClick = function(event) {
+  event.preventDefault();
+
+
 }
 
 const getCountriesRequestComplete = function(allCountries) {
-  console.log(allCountries);
+  allCountries.forEach(function(country) {
+    countryView.addCountry(country);
+  })
+
 }
 
 window.addEventListener('load', appStart);
 
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports) {
 
 const Request = function(url) {
@@ -127,6 +143,31 @@ Request.prototype.delete = function(next){
 }
 
 module.exports = Request;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+const CountryView = function() {
+  this.countries = [];
+}
+
+CountryView.prototype.addCountry = function(country) {
+  this.countries.push(country);
+  this.addToDropDown(country);
+}
+
+CountryView.prototype.addToDropDown = function(country) {
+  const selector = document.querySelector('#select-country');
+  const option = document.createElement('option');
+  option.textContent = country.name;
+  option.value = JSON.stringify(country);
+  selector.appendChild(option);
+}
+
+
+module.exports = CountryView;
 
 
 /***/ })
