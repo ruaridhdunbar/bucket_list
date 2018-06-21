@@ -79,12 +79,24 @@ const dbRequest = new Request('http://localhost:3000/api/bucket-list');
 
 const countryView = new CountryView();
 
+let mainMap;
+
 const appStart = function(){
   request.get(getCountriesRequestComplete);
   const mapDiv = document.getElementById('country-map');
-  const mainMap = new MapWrapper(mapDiv, [0, 0], 2);
+  mainMap = new MapWrapper(mapDiv, [0, 0], 2);
+  dbRequest.get(getSavedCountriesRequestComplete);
+
 }
 
+const getSavedCountriesRequestComplete = function(allSavedCountries) {
+  allSavedCountries.forEach(function(country) {
+    if (country.coords && country.coords.length === 2) {
+      mainMap.addMarker(country.coords);
+    }
+  })
+  countryView.addToList(allSavedCountries);
+}
 
 const getCountriesRequestComplete = function(allCountries) {
   allCountries.forEach(function(country) {
@@ -93,7 +105,6 @@ const getCountriesRequestComplete = function(allCountries) {
       name: country.name,
       coords: country.latlng
     })
-
     countryView.addCountry(newCountry);
   })
   const saveButton = document.querySelector('#submit');
@@ -108,7 +119,9 @@ const handleButtonClick = function(event) {
 }
 
 const saveRequestComplete = function(country){
-  console.log('hiya');
+  if (country.coords && country.coords.length === 2) {
+    mainMap.addMarker(country.coords);
+  }
 }
 
 window.addEventListener('load', appStart);
@@ -214,6 +227,10 @@ const MapWrapper = function(element, coords, zoom) {
  .addLayer(osmLayer)
  .setView(coords, zoom);
 }
+
+MapWrapper.prototype.addMarker = function (coords) {
+  L.marker(coords).addTo(this.map);
+};
 
 module.exports = MapWrapper;
 
