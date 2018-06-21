@@ -109,6 +109,8 @@ const getCountriesRequestComplete = function(allCountries) {
   })
   const saveButton = document.querySelector('#submit');
   saveButton.addEventListener('click', handleButtonClick);
+  const deleteButton = document.querySelector("#deleteButton");
+  deleteButton.addEventListener("click", handleDeleteClick);
 }
 
 const handleButtonClick = function(event) {
@@ -118,11 +120,21 @@ const handleButtonClick = function(event) {
   dbRequest.post(selectedCountryParsed, saveRequestComplete);
 }
 
+const handleDeleteClick = function(event) {
+  event.preventDefault();
+  dbRequest.delete(deleteRequestComplete);
+}
+
 const saveRequestComplete = function(country){
   if (country.coords && country.coords.length === 2) {
     mainMap.addMarker(country.coords);
   }
 }
+
+const deleteRequestComplete = function(){
+  countryView.clear();
+}
+
 
 window.addEventListener('load', appStart);
 
@@ -166,7 +178,7 @@ Request.prototype.delete = function(next){
     next();
   });
   request.send();
-}
+};
 
 module.exports = Request;
 
@@ -196,9 +208,15 @@ CountryView.prototype.addToList = function(countries){
   const ul = document.querySelector('#saved-countries');
   countries.forEach(function(country){
     const li = document.createElement('li');
-    li.textContent = countries.name;
+    li.textContent = country.name;
     ul.appendChild(li);
   })
+}
+
+CountryView.prototype.clear = function() {
+  this.countries = [];
+  const ul = document.querySelector('#saved-countries');
+  ul.innerHTML = '';
 }
 
 
@@ -229,7 +247,7 @@ const MapWrapper = function(element, coords, zoom) {
 }
 
 MapWrapper.prototype.addMarker = function (coords) {
-  L.marker(coords).addTo(this.map);
+ L.marker(coords).addTo(this.map);
 };
 
 module.exports = MapWrapper;

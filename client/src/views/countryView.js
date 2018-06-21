@@ -19,9 +19,15 @@ CountryView.prototype.addToList = function(countries){
   const ul = document.querySelector('#saved-countries');
   countries.forEach(function(country){
     const li = document.createElement('li');
-    li.textContent = countries.name;
+    li.textContent = country.name;
     ul.appendChild(li);
   })
+}
+
+CountryView.prototype.clear = function() {
+  this.countries = [];
+  const ul = document.querySelector('#saved-countries');
+  ul.innerHTML = '';
 }
 
 
