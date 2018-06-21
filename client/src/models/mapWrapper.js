@@ -5,4 +5,8 @@ const MapWrapper = function(element, coords, zoom) {
  .setView(coords, zoom);
 }
 
+MapWrapper.prototype.addMarker = function (coords) {
+  L.marker(coords).addTo(this.map);
+};
+
 module.exports = MapWrapper;
