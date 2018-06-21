@@ -70,6 +70,7 @@
 // const CountryView = require("./views/countryView")
 const Request = __webpack_require__(1);
 const CountryView = __webpack_require__(2)
+const Country = __webpack_require__(3)
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
@@ -93,8 +94,15 @@ const handleButtonClick = function(event) {
 
 const getCountriesRequestComplete = function(allCountries) {
   allCountries.forEach(function(country) {
-    countryView.addCountry(country);
+
+    const newCountry = new Country({
+      name: country.name,
+      coords: country.latlng
+    })
+
+    countryView.addCountry(newCountry);
   })
+  console.log(countryView.countries);
 
 }
 
@@ -168,6 +176,18 @@ CountryView.prototype.addToDropDown = function(country) {
 
 
 module.exports = CountryView;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+const Country = function(options){
+  this.name = options.name,
+  this.coords = options.coords
+};
+
+module.exports = Country;
 
 
 /***/ })
