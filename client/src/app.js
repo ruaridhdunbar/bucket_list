@@ -2,6 +2,7 @@
 const Request = require('./services/request.js');
 const CountryView = require('./views/countryView.js')
 const Country = require('./models/country.js')
+const MapWrapper = require('./models/mapWrapper.js')
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
@@ -11,6 +12,8 @@ const countryView = new CountryView();
 
 const appStart = function(){
   request.get(getCountriesRequestComplete);
+  const mapDiv = document.getElementById('country-map');
+  const mainMap = new MapWrapper(mapDiv, [0, 0], 2);
 }
 
 

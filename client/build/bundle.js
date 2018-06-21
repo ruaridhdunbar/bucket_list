@@ -71,6 +71,7 @@
 const Request = __webpack_require__(1);
 const CountryView = __webpack_require__(2)
 const Country = __webpack_require__(3)
+const MapWrapper = __webpack_require__(4)
 
 // const countryView = new CountryView();
 const request = new Request('http://restcountries.eu/rest/v2/all');
@@ -80,6 +81,8 @@ const countryView = new CountryView();
 
 const appStart = function(){
   request.get(getCountriesRequestComplete);
+  const mapDiv = document.getElementById('country-map');
+  const mainMap = new MapWrapper(mapDiv, [0, 0], 2);
 }
 
 
@@ -189,6 +192,20 @@ const Country = function(options){
 };
 
 module.exports = Country;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+const MapWrapper = function(element, coords, zoom) {
+ const osmLayer = new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+ this.map = L.map(element)
+ .addLayer(osmLayer)
+ .setView(coords, zoom);
+}
+
+module.exports = MapWrapper;
 
 
 /***/ })
