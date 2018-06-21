@@ -1,37 +1,26 @@
 
 
 body {
-  display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-  background-color: lightblue;
+  background-color: #B2D2DD;
 }
 
 p {
-  grid-column-start: 6;
-  /* grid-template-column-start: 6; */
-  /* grid-template-column-end: ; */
-  /* grid-template-row: 4 , 6; */
   color: white;
-  /* text-align: center; */
   font-size: 32px;
   text-transform: uppercase;
   font-family: helvetica;
+  text-align: center;
 }
 
-#select-country {
-  grid-column: 4 / 8;
+#form {
+  text-align: center;
 }
-
-#submit  {
-  grid-column: 4 / 8;
-  order: 1/8;
-}
-
-/* select {
-  align-content: center;
-} */
 
 #country-map {
-  height: 400px;
+  height: 50vh;
+}
+
+#content {
+  height: 50vh;
+  overflow-x: scroll;
 }
