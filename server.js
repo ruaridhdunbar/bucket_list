@@ -37,6 +37,14 @@ MongoClient.connect("mongodb://localhost:27017", function(err, client) {
     })
   })
 
+  server.delete("/api/bucket-list", function(req, res, next) {
+  const countriesCollection = db.collection("countries");
+  countriesCollection.remove({}, function(err, result) {
+    if (err) next(err);
+    res.status(201).send();
+  });
+});
+
 
   server.listen(3000, function(){
     console.log("Listening on port 3000");

@@ -24,5 +24,11 @@ CountryView.prototype.addToList = function(countries){
   })
 }
 
+CountryView.prototype.clear = function() {
+  this.countries = [];
+  const ul = document.querySelector('#saved-countries');
+  ul.innerHTML = '';
+}
+
 
 module.exports = CountryView;

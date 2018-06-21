@@ -33,6 +33,6 @@ Request.prototype.delete = function(next){
     next();
   });
   request.send();
-}
+};
 
 module.exports = Request;
